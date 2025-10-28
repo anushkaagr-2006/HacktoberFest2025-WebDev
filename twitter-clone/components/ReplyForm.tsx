@@ -1,33 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form";
 
 interface ReplyFormProps {
   onReply: (content: string) => void;
 }
 
-export default function ReplyForm({ onReply }: ReplyFormProps) {
-  const [reply, setReply] = useState('');
+interface FormValues {
+  reply: string;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (reply.trim()) {
-      onReply(reply);
-      setReply('');
-    }
+export default function ReplyForm({ onReply }: ReplyFormProps) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const replyValue = watch("reply", "");
+
+  const submitForm = (data: FormValues) => {
+    console.log("Submitted:", data);
+    onReply(data.reply);
+    reset(); 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 space-y-2">
+    <form onSubmit={handleSubmit(submitForm)} className="p-4 space-y-2">
       <Textarea
         placeholder="Tweet your reply"
-        value={reply}
-        onChange={(e) => setReply(e.target.value)}
+        {...register("reply", { required: "Reply is required" })}
         className="w-full"
       />
-      <Button type="submit" disabled={reply.trim().length === 0}>
+      {errors.reply && (
+        <p className="text-red-500 text-sm">{errors.reply.message}</p>
+      )}
+
+      <Button type="submit" disabled={replyValue.trim().length === 0}>
         Reply
       </Button>
     </form>
