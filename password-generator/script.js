@@ -4,6 +4,7 @@ const lengthValue = document.getElementById("lengthValue");
 const uppercaseCheckbox = document.getElementById("uppercase");
 const lowercaseCheckbox = document.getElementById("lowercase");
 const numbersCheckbox = document.getElementById("numbers");
+const strengthMtr = document.querySelector(".strength-meter");
 const symbolsCheckbox = document.getElementById("symbols");
 const strengthBar = document.getElementById("strengthBar");
 const generateBtn = document.getElementById("generateBtn");
@@ -109,4 +110,7 @@ shuffleBtn.addEventListener("click", () => {
   }
 });
 
-generateBtn.addEventListener("click", generatePassword);
+generateBtn.addEventListener("click", ()=>{
+  strengthMtr.style.display = "block";
+  generatePassword();
+});

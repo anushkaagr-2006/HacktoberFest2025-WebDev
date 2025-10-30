@@ -143,7 +143,8 @@ input[type="range"]{
   -webkit-appearance:none;
   appearance:none;
   height:8px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  /*background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));*/
+  background-color: #693FEA;
   border-radius:999px;
   outline:none;
   box-shadow: inset 0 3px 8px rgba(2,6,12,0.6);
@@ -224,6 +225,7 @@ input[type="range"]::-moz-range-thumb{
   border-radius:999px;
   padding:3px;
   box-shadow: inset 0 6px 14px rgba(2,6,12,0.6);
+  display: none;
 }
 #strengthBar{
   display:flex;
